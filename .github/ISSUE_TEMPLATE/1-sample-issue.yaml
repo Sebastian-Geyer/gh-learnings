@@ -2,7 +2,7 @@ name: sample
 description: sample description
 title: Issue
 labels: []
-assignees:
+assignees: []
 body:
   - type: input
     id: input_a

@@ -21,4 +21,5 @@ jobs:
         input=$( echo '${{ github.event.issue.body }}' |tr -d '\n' | tr -d '\r' | sed 's/### Input A//;' )
         echo "input=$input" >> "$GITHUB_OUTPUT"
     - id: print
-      run: "input: ${{ steps.parse_body.outputs.input }}"
+      run: |
+        echo "input: ${{ steps.parse_body.outputs.input }}"

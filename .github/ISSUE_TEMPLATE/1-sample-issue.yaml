@@ -1,0 +1,14 @@
+name: sample
+description: sample description
+title: Issue
+labels: []
+assignees:
+body:
+  - type: input
+    id: input_a
+    attributes:
+      label: Input A
+      description: a sample input string
+      placeholder: example
+    validations:
+      required: false

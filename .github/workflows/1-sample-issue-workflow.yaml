@@ -1,0 +1,24 @@
+name: "sample issue workflow"
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  execution:
+    runs-on: ubuntu-latest
+    outputs: 
+      input: ${{ steps.parse_body.outputs.input }}
+    steps:
+    - id: parse_body
+      name: find body info
+      shell: bash
+      #1: remove all linebrakes
+      #2: remove the headlines from the input fields
+      #3: prepend "input="
+      run: |
+        input=$( echo '${{ github.event.issue.body }}' |tr -d '\n' | tr -d '\r' | sed 's/### Input A//;' )
+        echo "input=$input" >> "$GITHUB_OUTPUT"
+    - id: print
+      run: "input: ${{ steps.parse_body.outputs.input }}"

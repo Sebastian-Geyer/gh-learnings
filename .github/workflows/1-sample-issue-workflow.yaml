@@ -11,6 +11,13 @@ jobs:
     outputs: 
       input: ${{ steps.parse_body.outputs.input }}
     steps:
+    - id: debug_info
+      name: Show debug info  
+      continue-on-error: true
+      run: |
+        echo github payload:
+        echo "${{ toJson(github) }}"
+  
     - id: parse_body
       name: find body info
       shell: bash

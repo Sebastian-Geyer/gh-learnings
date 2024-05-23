@@ -1,0 +1,24 @@
+name: "Workflow triggerd by another workflow via dispatch"
+
+run-name: disptach triggered 
+
+on:
+  workflow_dispatch:
+    inputs:
+      distinct_id:
+        description: "The parameter distinct_id is used by the caller of this workflow to identify the called workflow/job"
+      input_string:
+        description: "a string input"
+        required: true
+        type: string
+
+jobs:
+  execution:
+    runs-on: ubuntu-latest
+    steps:
+      # this step is needed to link this workflow back to triggering workflow
+      # https://github.com/Codex-/return-dispatch
+      - name: Echo distinct ID ${{ inputs.distinct_id }}
+        run: echo ${{ inputs.distinct_id }}
+      - name: show input
+        run: echo ${{ inputs.input_string }}

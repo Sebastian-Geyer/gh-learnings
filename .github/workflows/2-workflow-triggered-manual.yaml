@@ -1,0 +1,35 @@
+name: "Workflow triggerd by hand"
+
+run-name: manual triggered 
+
+on:
+  workflow_dispatch:
+    inputs:
+      input_string:
+        description: "a string input"
+        required: true
+        type: string
+
+jobs:
+  disptach:
+    runs-on: ubuntu-latest
+    steps:
+    - name: dispatch worklow
+      # https://github.com/Codex-/return-dispatch
+      uses: codex-/return-dispatch@v1.12.0
+      id: dispatch
+      with:
+        token: ${{ secrets.GH_TOKEN }}
+        repo: gh-learnings
+        ref: main
+        owner: Sebastian-Geyer
+        workflow: 3-workflow-triggered-dispatch.yaml
+        workflow_inputs: '{ "input_string": "${{ inputs.input_string }}" }'
+
+    - name: wait for dispatched workflow (${{ steps.dispatch.outputs.run_id }})
+      uses: Codex-/await-remote-run@v1.10.0
+      with:
+        token: ${{ secrets.GH_TOKEN }}
+        repo: gh-learnings
+        owner: Sebastian-Geyer
+        run_id: ${{ steps.dispatch.outputs.run_id }}

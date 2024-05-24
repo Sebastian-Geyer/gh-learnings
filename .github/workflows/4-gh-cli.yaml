@@ -24,7 +24,7 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git switch branch_template
-
         git checkout -b ${{ inputs.branch_name }}
+        git push
         
         gh pr create -f -B"main" -H"${{ inputs.branch_name }}"

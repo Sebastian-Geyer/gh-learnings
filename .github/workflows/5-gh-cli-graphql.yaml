@@ -1,6 +1,6 @@
-name: "Workflow using gh cli"
+name: "comment pr with gh cli graphql api"
 
-run-name: workflow gh cli
+run-name: comment pr with gh cli graphql api
 
 on:
   workflow_dispatch:

@@ -1,0 +1,43 @@
+name: "Workflow using gh cli"
+
+run-name: workflow gh cli
+
+on:
+  workflow_dispatch:
+    inputs:
+      pull_request_number:
+        description: "number of a pull request"
+        required: true
+        type: number
+
+jobs:
+  execute:
+    outputs:
+      pull_request_node_id: ${{ steps.get_node_id.outputs.pull_request_node_id }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: get node id
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        id: get_node_id
+        run: |
+          id=$(gh api graphql -F owner=${{ github.repository_owner }} -F name=${{ github.event.repository.name }} -F number=${{ inputs.pull_request_number }} -f query='
+          query ($name: String!, $owner: String!, $number: Int!) {
+            repository(owner: $owner, name: $name) {
+              pullRequest(number: $number) {
+                id
+              }
+            }
+          }' --jq '.data.repository.pullRequest.id')
+          echo "pull_request_node_id=$id" >> "$GITHUB_OUTPUT"
+
+      - name: comment pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api graphql -F subjectId=${{ steps.get_node_id.outputs.pull_request_node_id }} -F body="sample Message ${{ github.run_id }}" -f query='
+          mutation ($subjectId: ID!, $body: String!) {
+            addComment(input: {subjectId:$subjectId, body:$body}) {
+              clientMutationId
+            }
+          }'

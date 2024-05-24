@@ -11,7 +11,7 @@ on:
 jobs:
   create_branch_and_pr:
     name: create branch an pr
-    runs-on: auto-u20-base
+    runs-on: ubuntu-latest
     steps:
 
     - name: clone repo

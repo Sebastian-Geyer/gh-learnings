@@ -25,4 +25,4 @@ jobs:
 
         git checkout -b ${{ inputs.branch_name }}
         
-        gh pr create -f -B"main" -H"${{ inputs.branch_name }}
+        gh pr create -f -B"main" -H"${{ inputs.branch_name }}"

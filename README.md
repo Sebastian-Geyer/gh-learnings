@@ -22,4 +22,4 @@ A Workflow run can be triggered via Visual Studion Code launch.json and payload.
 
 ## gh cli
 
-One way to interact with an github repository is the github cli https://cli.github.com/. We can use the cli for different use case in wortkflow. The example workflow 4-gh-cli.yaml creates a new branch with git commands and opens a pull request for this branch with the github cli. The second workflow 5-gh-cli-graphql.yaml adds a comment to a pull request with the github cli using the github graphql api https://docs.github.com/en/graphql.
+One way to interact with an github repository is the github cli https://cli.github.com/. We can use the cli for different use case in wortkflow. The example workflow 4-gh-cli.yaml creates a new branch with git commands and opens a pull request for this branch with the github cli. The second workflow 5-gh-cli-graphql.yaml adds a comment to a pull request with the github cli using the github graphql api https://docs.github.com/en/graphql. For the cli to work properly in workflows some setting regarding permissions must be done. These aree found in repository setting under settings/actions.

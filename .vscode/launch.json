@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "local Workflow debugging",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "debug/debug_wrapper.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--github_token=",
+                "--yaml_path=1-sample-issue-workflow.yaml",
+                "--yaml_payload=debug/payload.json"
+            ]
+        }
+    ]
+}

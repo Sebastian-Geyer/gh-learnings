@@ -1,0 +1,28 @@
+name: "create branch with pr"
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch_name:
+        description: "name of the new branch"
+        required: true
+        type: string
+
+jobs:
+  create_branch_and_pr:
+    name: create branch an pr
+    runs-on: auto-u20-base
+    steps:
+
+    - name: clone repo
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: create and publish new branch an pr
+      run: |
+        git switch branch_template
+
+        git checkout -b ${{ inputs.branch_name }}
+        
+        gh pr create -f -B"main" -H"${{ inputs.branch_name }}
